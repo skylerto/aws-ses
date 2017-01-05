@@ -22,3 +22,9 @@ email.from=bar@baz.org
 email.subject=test subject
 email.body=test body
 ```
+
+## Gotchas
+
+Be aware that you must confirm *both* the sender and recipient email addresses under a sandbox environment.
+You can enable [Production Mode](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/request-production-access.html) so recipients do not need to verify their address.
+
