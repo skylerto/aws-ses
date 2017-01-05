@@ -15,6 +15,7 @@ java -jar -Dproperties=<path to properties file>
 ```
 aws.accessKey=<public key>
 aws.secretKey=<secret key>
+aws.region=<region>
 
 email.to=foo@bar.net
 email.from=bar@baz.org
