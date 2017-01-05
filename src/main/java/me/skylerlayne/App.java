@@ -59,6 +59,7 @@ public class App {
 
 			log.info("Sending Email to " + to + " from " + from);
 			mailer.addTo(to).addFrom(from).addSubject(subject).addBody(body).send();
+			log.info("Email successfully delivered");
 		} catch (AddressException e) {
 			e.printStackTrace();
 			log.info("Caught an AddressException, which means one or more of your "
