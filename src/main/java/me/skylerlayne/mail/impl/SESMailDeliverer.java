@@ -1,13 +1,14 @@
 package me.skylerlayne.mail.impl;
 
-import java.util.Arrays;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
-import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
-import com.amazonaws.services.simpleemail.model.Body;
-import com.amazonaws.services.simpleemail.model.Content;
-import com.amazonaws.services.simpleemail.model.Destination;
-import com.amazonaws.services.simpleemail.model.Message;
-import com.amazonaws.services.simpleemail.model.SendEmailRequest;
+import com.amazonaws.services.simpleemail.AWSJavaMailTransport;
 
 import me.skylerlayne.mail.EmailDeliverer;
 
@@ -24,20 +25,36 @@ public class SESMailDeliverer implements EmailDeliverer {
 	private String from;
 	private String subject;
 	private String body;
-	private AmazonSimpleEmailService ses;
+	private Session session;
 
-	public SESMailDeliverer(AmazonSimpleEmailService ses) {
-		this.ses = ses;
+	public SESMailDeliverer(Session session) {
+		this.session = session;
 	}
 
-	public void send() {
-		Destination dest = new Destination(Arrays.asList(to));
-		SendEmailRequest request = new SendEmailRequest(from, dest, createMessage());
-		ses.sendEmail(request);
+	public void send() throws AddressException, MessagingException {
+
+		// Create a new Message
+		Message msg = createMessage();
+
+		// Reuse one Transport object for sending all your messages
+		// for better performance
+		Transport t = new AWSJavaMailTransport(session, null);
+		t.connect();
+		t.sendMessage(msg, null);
+
+		// Close your transport when you're completely done sending
+		// all your messages
+		t.close();
 	}
 
-	private Message createMessage() {
-		return new Message(new Content(subject), new Body(new Content(body)));
+	private Message createMessage() throws AddressException, MessagingException {
+		Message msg = new MimeMessage(session);
+		msg.setFrom(new InternetAddress(to));
+		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+		msg.setSubject(subject);
+		msg.setText(body);
+		msg.saveChanges();
+		return msg;
 	}
 
 	public EmailDeliverer addFrom(String from) {

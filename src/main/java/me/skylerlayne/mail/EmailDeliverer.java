@@ -1,5 +1,8 @@
 package me.skylerlayne.mail;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 /**
  * Interface for configuring an Email for delivery.
  * 
@@ -43,8 +46,10 @@ public interface EmailDeliverer {
 
 	/**
 	 * Send the email.
+	 * @throws MessagingException 
+	 * @throws AddressException 
 	 */
-	public void send();
+	public void send() throws AddressException, MessagingException;
 
 	public void setFrom(String from);
 
