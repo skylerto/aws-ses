@@ -1,5 +1,14 @@
 package me.skylerlayne.mail.impl;
 
+import java.util.Arrays;
+
+import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
+import com.amazonaws.services.simpleemail.model.Body;
+import com.amazonaws.services.simpleemail.model.Content;
+import com.amazonaws.services.simpleemail.model.Destination;
+import com.amazonaws.services.simpleemail.model.Message;
+import com.amazonaws.services.simpleemail.model.SendEmailRequest;
+
 import me.skylerlayne.mail.EmailDeliverer;
 
 /**
@@ -15,10 +24,20 @@ public class SESMailDeliverer implements EmailDeliverer {
 	private String from;
 	private String subject;
 	private String body;
+	private AmazonSimpleEmailService ses;
+
+	public SESMailDeliverer(AmazonSimpleEmailService ses) {
+		this.ses = ses;
+	}
 
 	public void send() {
-		// TODO Auto-generated method stub
+		Destination dest = new Destination(Arrays.asList(to));
+		SendEmailRequest request = new SendEmailRequest(from, dest, createMessage());
+		ses.sendEmail(request);
+	}
 
+	private Message createMessage() {
+		return new Message(new Content(subject), new Body(new Content(body)));
 	}
 
 	public EmailDeliverer addFrom(String from) {
