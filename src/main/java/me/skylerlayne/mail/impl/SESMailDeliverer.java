@@ -11,25 +11,10 @@ import me.skylerlayne.mail.EmailDeliverer;
  */
 public class SESMailDeliverer implements EmailDeliverer {
 
-	public void setFrom(String from) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void setTo(String to) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void setSubject(String subject) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void setBody(String body) {
-		// TODO Auto-generated method stub
-
-	}
+	private String to;
+	private String from;
+	private String subject;
+	private String body;
 
 	public void send() {
 		// TODO Auto-generated method stub
@@ -37,23 +22,54 @@ public class SESMailDeliverer implements EmailDeliverer {
 	}
 
 	public EmailDeliverer addFrom(String from) {
-		// TODO Auto-generated method stub
-		return null;
+		this.setFrom(from);
+		return this;
 	}
 
 	public EmailDeliverer addTo(String to) {
-		// TODO Auto-generated method stub
-		return null;
+		this.setTo(to);
+		return this;
 	}
 
 	public EmailDeliverer addSubject(String subject) {
-		// TODO Auto-generated method stub
-		return null;
+		this.setSubject(subject);
+		return this;
 	}
 
 	public EmailDeliverer addBody(String body) {
-		// TODO Auto-generated method stub
-		return null;
+		this.setBody(body);
+		return this;
 	}
 
+	public String getTo() {
+		return to;
+	}
+
+	public void setTo(String to) {
+		this.to = to;
+	}
+
+	public String getFrom() {
+		return from;
+	}
+
+	public void setFrom(String from) {
+		this.from = from;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getBody() {
+		return body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
+	}
 }
