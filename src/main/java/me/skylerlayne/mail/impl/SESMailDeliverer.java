@@ -49,7 +49,7 @@ public class SESMailDeliverer implements EmailDeliverer {
 
 	private Message createMessage() throws AddressException, MessagingException {
 		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress(to));
+		msg.setFrom(new InternetAddress(from));
 		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 		msg.setSubject(subject);
 		msg.setText(body);
