@@ -52,7 +52,12 @@ public class App {
 		String from = props.getProperty("email.from");
 		String subject = props.getProperty("email.subject");
 		String body = props.getProperty("email.body");
-		verifyEmailAddress(client, to);
+		verifyEmailAddress(client, from);
+		
+		String sandbox = System.getProperty("sandbox", "false");
+		if(sandbox.equals("true")) {
+			verifyEmailAddress(client, to);	
+		}
 
 		EmailDeliverer mailer = new SESMailDeliverer(session);
 		try {
