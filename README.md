@@ -5,9 +5,27 @@ Amazon Web Services Simple Email Service example.
 
 ## Usage
 
+### Script Helper
+
+#### Help
+```
+./bin/aws-ses
+```
+
+#### Build
+```
+./bin/aws-ses build
+```
+
+#### Execute
+```
+./bin/aws-ses run <path to properties file> <optional true/false sandbox argument>
+```
+
+### DIY
 ```
 mvn clean install
-java -jar -Dproperties=<path to properties file>
+java -jar -Dproperties=<path to properties file> -Dsandbox=<optional true/false sandbox argument>
 ```
 
 ### Example Properties File
